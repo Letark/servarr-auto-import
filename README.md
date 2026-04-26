@@ -3,6 +3,7 @@
 [![Build and Publish Docker Image](https://github.com/Letark/servarr-auto-import/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Letark/servarr-auto-import/actions/workflows/docker-publish.yml)
 [![GitHub release](https://img.shields.io/github/v/release/Letark/servarr-auto-import)](https://github.com/Letark/servarr-auto-import/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Docker Pulls](https://img.shields.io/docker/pulls/letark/servarr-auto-import)](https://hub.docker.com/r/letark/servarr-auto-import)
 [![Docker Image](https://img.shields.io/badge/ghcr.io-letark-blue)](https://github.com/Letark/servarr-auto-import/pkgs/container/servarr-auto-import)
 
 Automatically imports downloads that Sonarr, Radarr, and Lidarr refuse to import because the release was matched by indexer ID instead of filename.
@@ -147,9 +148,13 @@ No external Python dependencies — uses only the standard library.
 
 ## Releases
 
-Docker images are published to the [GitHub Container Registry](https://github.com/Letark/servarr-auto-import/pkgs/container/servarr-auto-import) on every tagged release, built for `linux/amd64` and `linux/arm64`.
+Docker images are published to both [Docker Hub](https://hub.docker.com/r/letark/servarr-auto-import) and the [GitHub Container Registry](https://github.com/Letark/servarr-auto-import/pkgs/container/servarr-auto-import) on every tagged release, built for `linux/amd64` and `linux/arm64`.
 
 ```bash
+# Docker Hub
+docker pull letark/servarr-auto-import:latest
+
+# GitHub Container Registry
 docker pull ghcr.io/letark/servarr-auto-import:latest
 ```
 
