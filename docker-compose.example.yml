@@ -1,0 +1,29 @@
+# Example: servarr-auto-import with Gluetun VPN
+#
+# This assumes your *arr apps share Gluetun's network namespace.
+# Adjust URLs if your setup differs.
+
+services:
+  servarr-auto-import:
+    image: ghcr.io/letark/servarr-auto-import:latest
+    container_name: servarr-auto-import
+    network_mode: service:gluetun
+    environment:
+      - SONARR_URL=http://localhost:8989
+      - SONARR_API_KEY=${SONARR_API_KEY}
+      - RADARR_URL=http://localhost:7878
+      - RADARR_API_KEY=${RADARR_API_KEY}
+      # - LIDARR_URL=http://localhost:8686
+      # - LIDARR_API_KEY=${LIDARR_API_KEY}
+      - POLL_INTERVAL=120
+      - DRY_RUN=false
+      - LOG_LEVEL=INFO
+      - TZ=America/Denver
+    restart: unless-stopped
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true
+    labels:
+      - logging=alloy
+      - logging_jobname=containerlogs
