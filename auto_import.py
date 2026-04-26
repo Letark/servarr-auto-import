@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Polls Sonarr/Radarr for importBlocked items with valid grab history and auto-imports them."""
 
+import html
 import json
 import logging
 import os
@@ -54,6 +55,10 @@ def is_id_matched_block(record):
     return False
 
 
+def clean_title(record):
+    return html.unescape(record.get("title", "?"))
+
+
 # ── Sonarr ──────────────────────────────────────────────────────────────────
 
 
@@ -78,14 +83,14 @@ def process_sonarr():
 
 
 def sonarr_import(record):
-    title = record.get("title", "?")
+    title = clean_title(record)
     series_id = record.get("seriesId")
     download_id = record.get("downloadId", "")
     if not series_id:
         log.warning("Sonarr: no seriesId for '%s', skipping", title)
         return
     # Get the output path from the queue record
-    output_path = record.get("outputPath", "")
+    output_path = html.unescape(record.get("outputPath", ""))
     if not output_path:
         log.warning("Sonarr: no outputPath for '%s', skipping", title)
         return
@@ -141,12 +146,12 @@ def process_radarr():
 
 
 def radarr_import(record):
-    title = record.get("title", "?")
+    title = clean_title(record)
     movie_id = record.get("movieId")
     if not movie_id:
         log.warning("Radarr: no movieId for '%s', skipping", title)
         return
-    output_path = record.get("outputPath", "")
+    output_path = html.unescape(record.get("outputPath", ""))
     if not output_path:
         log.warning("Radarr: no outputPath for '%s', skipping", title)
         return
