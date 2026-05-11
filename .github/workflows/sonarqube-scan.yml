@@ -1,0 +1,26 @@
+name: SonarQube Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sonarqube:
+    runs-on: [self-hosted, docker-srv-03]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarQube Scan
+        env:
+          HOST_WORKSPACE: /home/engineer/Docker/containers/github-runner/work/servarr-auto-import/servarr-auto-import
+        run: |
+          docker run --rm \
+            --network proxy_network \
+            -e SONAR_TOKEN=${{ secrets.SONAR_TOKEN }} \
+            -e SONAR_HOST_URL=http://sonarqube:9000 \
+            -v "${HOST_WORKSPACE}:/usr/src" \
+            sonarsource/sonar-scanner-cli:latest
