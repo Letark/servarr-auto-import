@@ -16,7 +16,7 @@ jobs:
 
       - name: SonarQube Scan
         env:
-          HOST_WORKSPACE: /home/engineer/Docker/containers/github-runner/work/servarr-auto-import/servarr-auto-import
+          HOST_WORKSPACE: /home/engineer/Docker/containers/github-runner/realestate-flyer/work/servarr-auto-import/servarr-auto-import
         run: |
           docker run --rm \
             --network proxy_network \
