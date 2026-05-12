@@ -19,8 +19,7 @@ jobs:
           HOST_WORKSPACE: /home/engineer/Docker/containers/github-runner/servarr-auto-import/work/servarr-auto-import/servarr-auto-import
         run: |
           docker run --rm \
-            --network proxy_network \
             -e SONAR_TOKEN=${{ secrets.SONAR_TOKEN }} \
-            -e SONAR_HOST_URL=http://sonarqube:9000 \
+            -e SONAR_HOST_URL=http://172.16.1.247:9000 \
             -v "${HOST_WORKSPACE}:/usr/src" \
             sonarsource/sonar-scanner-cli:latest
